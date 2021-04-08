@@ -11,6 +11,7 @@ const message_size_input = document.getElementById('message-size');
 const section_split_input = document.getElementById('section-split');
 const address_area = document.getElementById('address');
 const my_address_input = document.getElementById('my-address');
+const download_link = document.getElementById('download');
 
 function draw() {
     mathjax_ready.then(() => {
@@ -28,6 +29,10 @@ function draw() {
         text(message.trim(),HMARGIN,TOPMARGIN+MARGIN+message_size, {fontname: message_font_picker.value, size: message_size, halign: 'left', valign: 'top', maxwidth: MESSAGE_WIDTH*W-2*HMARGIN, maxheight: H-2*MARGIN-message_size-TOPMARGIN, fit_width: false});
         text(`From: ${my_address}`,W/2, H-MARGIN/2, {fontname: 'EMSReadability', halign: 'center', size: 3});
         line(W*MESSAGE_WIDTH,TOPMARGIN+(H-TOPMARGIN)/8,W*MESSAGE_WIDTH,TOPMARGIN+(H-TOPMARGIN)*7/8);
+
+        const blob = new Blob([svg.outerHTML], {type: 'image/svg+xml'});
+        const url = URL.createObjectURL(blob);
+        download_link.setAttribute('href',url);
     });
 }
 
